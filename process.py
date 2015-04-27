@@ -29,6 +29,16 @@ with open('OrdoneA.csv', 'rb') as csvfile:
 
 s = to_datetime(starttime, unit='s')
 e = to_datetime(endtime, unit='s')
+ts1 = pd.Series(content, s)
+print ts1
+ts2 = pd.Series(content, e)
+print ts2
+daterange = pd.date_range(s[0], e[0], freq="s")
+ts3=pd.Series(content[0],daterange)
+print daterange
+print ts3
+print starttime[0]
+#print ts3[to_datetime(starttime[0]):to_datetime(starttime[0]+20)]
 
 
 #print starttime
