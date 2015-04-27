@@ -1,6 +1,10 @@
 import time,csv,scipy
 from scipy import sign,integrate
 from time import mktime
+import pandas as pd
+import numpy as np
+from pandas import to_datetime
+
 
 str="2011-11-28 02:27:59"
 a=time.strptime(str,"%Y-%m-%d %H:%M:%S")
@@ -23,19 +27,27 @@ with open('OrdoneA.csv', 'rb') as csvfile:
 				content.append(item)
 			i+=1
 
+s = to_datetime(starttime, unit='s')
+e = to_datetime(endtime, unit='s')
+
+
 #print starttime
 #print endtime
 #print content
-variable={}
-variable['starttime']=starttime[0]
-variable['endtime']=endtime[-1]
+#variable={}
+#variable['starttime']=starttime[0]
+#variable['endtime']=endtime[-1]
 
-now=starttime[0]
-ii=0
-while ii<= 60:
-	if now+ii in starttime:
-		print content[starttime.index(now+ii)]
-	ii+=1
+#now=starttime[0]
+#while now < starttime[0]+100000:
+#	ii=0
+#	while ii<= 60:
+#		if now in starttime:
+#			print content[starttime.index(now)]
+#		if now in endtime:
+#			print content[endtime.index(now)]
+#		now+=1
+#		ii+=1
 
 
 #index=0
