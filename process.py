@@ -1,5 +1,5 @@
-import time
-import csv
+import time,csv,scipy
+from scipy import sign,integrate
 from time import mktime
 
 str="2011-11-28 02:27:59"
@@ -26,25 +26,34 @@ with open('OrdoneA.csv', 'rb') as csvfile:
 #print starttime
 #print endtime
 #print content
-
-print starttime[0]
-print endtime[-1]
+variable={}
+variable['starttime']=starttime[0]
+variable['endtime']=endtime[-1]
 
 now=starttime[0]
-index=0
-id=0
-event={}
-print endtime[index]
+ii=0
+while ii<= 60:
+	if now+ii in starttime:
+		print content[starttime.index(now+ii)]
+	ii+=1
 
-while (now<endtime[-1]+60):
-	while (now>endtime[index]) & (index<len(content)-1):
-		print now
-		print endtime[index]
-		print index
-		index+=1
-	event[id]=[now,content[index]]
-	id+=1
-	now+=60
-print event
+
+#index=0
+#id=0
+#event={}
+#print endtime[index]
+
+#print integrate.quad(lambda x: (sign(x-1)+1)/2-(sign(x-3)+1)/2, 0, 4.5)
+
+#while (now<endtime[-1]+60):
+#	while (now>endtime[index]) & (index<len(content)-1):
+#		print now
+#		print endtime[index]
+#		print index
+#		index+=1
+#	event[id]=[now,content[index]]
+#	id+=1
+#	now+=60
+#print event
 
 # didn't consider the case that time divided the events
