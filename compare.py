@@ -1,11 +1,16 @@
 import time,csv,scipy
 from scipy import sign,integrate
-from time import mktime
+from time import mktime, gmtime, strftime
 import numpy as np
 
+#real time to unix time
 #str1="2011-11-28 02:27:59"
 #a=time.strptime(str1,"%Y-%m-%d %H:%M:%S")
 #mktime(a)
+
+#unix time to real time
+#unixtime=1322447279
+#strftime("%Y-%m-%d %H:%M:%S", gmtime(unixtime))
 
 starttime=1322447279
 endtime=1323674541
@@ -28,29 +33,31 @@ with open('OrdoneA.csv', 'rb') as csvfile:
 			i+=1
 
 result={}
-nth=0
-current=starttime
 
-def ishigh(current):
+def ishigh(current,sensor):
 	global nth
-	while current > dic['Toilet'][nth][1]:
-		print current
-		print nth
-		print dic['Toilet'][nth][1]
+	while current > dic[sensor][nth][1]:
 		nth+=1
-		print nth
-		print len(dic['Toilet'])
-		if nth >= len(dic['Toilet']):
-			nth-=1
+		#print nth
+		#print len(dic[sensor])
+		if nth >= len(dic[sensor]):
 			return False
-	if current < dic['Toilet'][nth][0]:
+	if current < dic[sensor][nth][0]:
 		return False
 	else:
 		return True
 
-while current <= endtime:
-	if ishigh(current):
-		if int(current - starttime / deltat) not in result:
-			result[int(current - starttime / deltat)]=0
-		result[int(current - starttime / deltat)]+=1
-	current+=1
+for sensor in dic:
+	print sensor
+	current=starttime
+	nth=0
+	while current <= endtime:
+		if nth >= len(dic[sensor]):
+			break
+		if ishigh(current,sensor):
+			if sensor not in result:
+				result[sensor]={}
+			if int((current - starttime) / deltat) not in result[sensor]:
+				result[sensor][int((current - starttime) / deltat)]=0
+			result[sensor][int((current - starttime) / deltat)]+=1
+		current+=1
