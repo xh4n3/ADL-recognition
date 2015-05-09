@@ -50,7 +50,7 @@ def ishigh(current):
 
 while current <= endtime:
 	if ishigh(current):
-		if int(current % starttime / deltat) not in result:
-			result[int(current % starttime / deltat)]=0
-		result[int(current % starttime / deltat)]+=1
+		if int(current - starttime / deltat) not in result:
+			result[int(current - starttime / deltat)]=0
+		result[int(current - starttime / deltat)]+=1
 	current+=1
