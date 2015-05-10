@@ -11,7 +11,8 @@ deltat=60
 #real time to unix time
 #tstr="2011-11-28 02:27:59"
 def tounix(tstr):
-	return mktime(time.strptime(tstr,"%Y-%m-%d %H:%M:%S"))
+	lotime=mktime(time.strptime(tstr,"%Y-%m-%d %H:%M:%S"))
+	return (lotime,(lotime-starttime)/deltat)
 
 #unix time to real time
 #ustr=1322447279
@@ -96,3 +97,8 @@ output=cluster.vq.kmeans2(x,10,iter=1000,minit='points')
 #rescaled
 whitex=cluster.vq.whiten(x)
 output_white=cluster.vq.kmeans2(whitex,10,iter=1000,minit='points')
+
+def check(tstr):
+	return output_white[1][int(tounix(tstr)[1])]
+
+
